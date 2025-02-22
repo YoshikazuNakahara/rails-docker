@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - .:/app
+      - bundle:/usr/local/bundle
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      - RAILS_ENV=development
+      - POSTGRES_HOST=db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+
+  db:
+    image: postgres:12
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - .:/app
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=rails_docker_development
+
+volumes:
+  postgres_data:
+  bundle: 
