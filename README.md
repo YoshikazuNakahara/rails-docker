@@ -1,24 +1,42 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+アプリケーションのセットアップについて記述します
 
-Things you may want to cover:
+# Rails Dockerプロジェクト
 
-* Ruby version
+## 前提条件
+- Docker
+- Docker Compose
 
-* System dependencies
+## セットアップ手順
 
-* Configuration
+1. リポジトリをクローンする
+```bash
+git clone https://github.com/YoshikazuNakahara/rails-docker.git
+cd rails-docker
+```
 
-* Database creation
+2. コンテナをビルドして起動する
+```bash
+docker-compose build
+docker-compose up
+```
 
-* Database initialization
+3. データベースをセットアップする
+```bash
+docker-compose run web rails db:create
+docker-compose run web rails db:migrate
+```
 
-* How to run the test suite
+## アプリケーションへのアクセス
+- ウェブアプリケーション: http://localhost:3000
+- データベース: localhost:5432
 
-* Services (job queues, cache servers, search engines, etc.)
+## アプリケーションの停止
+```bash
+docker-compose down
+```
 
-* Deployment instructions
-
-* ...
+## 開発
+- すべてのRailsコマンドは`docker-compose run web`を介して実行する必要があります。
+- 例: `docker-compose run web rails generate model User`
